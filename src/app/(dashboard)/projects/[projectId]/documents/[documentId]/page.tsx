@@ -13,6 +13,8 @@ export default async function DocumentDetailPage({
   params,
 }: PageProps<"/projects/[projectId]/documents/[documentId]">) {
   const { projectId, documentId } = await params
+  // FIX: Not checking permissions
+  // FIX: Not checking if user has access to project
 
   const document = await getDocumentWithUserInfo(documentId)
   if (document == null) return notFound()
@@ -41,12 +43,14 @@ export default async function DocumentDetailPage({
           </div>
         </div>
         <div className="flex gap-2">
+          {/* PERMISSION: */}
           <Button variant="outline" asChild>
             <Link href={`/projects/${projectId}/documents/${documentId}/edit`}>
               <PencilIcon className="size-4 mr-2" />
               Edit
             </Link>
           </Button>
+          {/* PERMISSION: */}
           <ActionButton
             variant="destructive"
             requireAreYouSure

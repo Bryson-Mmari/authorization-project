@@ -30,6 +30,7 @@ export function AppSidebar({ projects }: AppSidebarProps) {
         <SidebarGroup>
           <SidebarGroupLabel className="flex items-center justify-between">
             Projects
+            {/* PERMISSION: */}
             <Button variant="ghost" size="icon-xs" asChild>
               <Link href="/projects/new">
                 <PlusIcon className="size-4" />

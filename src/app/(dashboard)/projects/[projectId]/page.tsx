@@ -23,15 +23,15 @@ export default async function ProjectDocumentsPage({
   const project = await getProjectById(projectId);
   if (project == null) return notFound();
 
-  // FIX: Not checking if user has access to the project.
+  // PERMISSION:
   const user = await getCurrentUser();
   if (
     user == null ||
-    user.role !== "admin" &&
-    project.department != null && // false for null or undefined
-    user.department !== project.department
+    (user.role !== "admin" &&
+      project.department != null && // false for null or undefined
+      user.department !== project.department)
   ) {
-    return redirect('/');
+    return redirect("/");
   }
 
   const documents = await getProjectDocuments(projectId);
@@ -46,9 +46,12 @@ export default async function ProjectDocumentsPage({
           )}
         </div>
         <div className="flex gap-2">
+          {/* PERMISSION: */}
           <Button asChild variant="outline">
             <Link href={`/projects/${projectId}/edit`}>Edit Project</Link>
           </Button>
+          {/* PERMISSION: */}
+          {/* FIX: Missing admin role check */}
           <Button asChild>
             <Link href={`/projects/${projectId}/documents/new`}>
               <PlusIcon className="size-4" />
@@ -66,6 +69,7 @@ export default async function ProjectDocumentsPage({
             <p className="text-muted-foreground mb-4">
               Create your first document in this project.
             </p>
+            {/* FIX: Missing permission check */}
             <Button asChild>
               <Link href={`/projects/${projectId}/documents/new`}>
                 <PlusIcon className="size-4 mr-2" />

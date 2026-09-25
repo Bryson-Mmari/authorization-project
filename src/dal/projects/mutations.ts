@@ -3,6 +3,7 @@ import { ProjectInsertData, ProjectTable } from "@/drizzle/schema"
 import { eq } from "drizzle-orm"
 
 export async function createProject(data: ProjectInsertData) {
+  // PERMISSION:
   const [project] = await db
     .insert(ProjectTable)
     .values(data)
@@ -15,9 +16,11 @@ export async function updateProject(
   projectId: string,
   data: Partial<ProjectInsertData>,
 ) {
+  // PERMISSION:
   await db.update(ProjectTable).set(data).where(eq(ProjectTable.id, projectId))
 }
 
 export async function deleteProject(projectId: string) {
+  // PERMISSION:
   await db.delete(ProjectTable).where(eq(ProjectTable.id, projectId))
 }

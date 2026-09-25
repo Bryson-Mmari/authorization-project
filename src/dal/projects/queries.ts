@@ -3,6 +3,7 @@ import { ProjectTable } from "@/drizzle/schema"
 import { eq } from "drizzle-orm"
 
 export async function getAllProjects({ ordered } = { ordered: false }) {
+  // PERMISSION:
   return db.query.ProjectTable.findMany({
     orderBy: ordered ? ProjectTable.name : undefined,
   })
@@ -13,3 +14,5 @@ export async function getProjectById(id: string) {
     where: eq(ProjectTable.id, id),
   })
 }
+
+// PERMISSION:

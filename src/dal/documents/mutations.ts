@@ -3,6 +3,8 @@ import { DocumentInsertData, DocumentTable } from "@/drizzle/schema"
 import { eq } from "drizzle-orm"
 
 export async function createDocument(data: DocumentInsertData) {
+  // PERMISSION:
+  // FIX: Missing viewer role check
   const [document] = await db
     .insert(DocumentTable)
     .values(data)
@@ -15,6 +17,7 @@ export async function updateDocument(
   documentId: string,
   data: Partial<DocumentInsertData>,
 ) {
+  // PERMISSION:
   await db
     .update(DocumentTable)
     .set(data)
@@ -22,5 +25,6 @@ export async function updateDocument(
 }
 
 export async function deleteDocument(documentId: string) {
+  // PERMISSION:
   await db.delete(DocumentTable).where(eq(DocumentTable.id, documentId))
 }
